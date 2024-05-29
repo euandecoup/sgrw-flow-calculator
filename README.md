@@ -22,7 +22,7 @@ A flow calculator for Stormguard Rainwater's rainwater product range
 10. reduced system capacity minus flow rate = is proposed system okay? true or false
 ## data:
 1. reference object of gutter / pipe combo capacity values
-2. pitch adjustment conditions
+2. pitch adjustment convertor function
 3. gutter depth
 4. Lg/d : reduction factor range table
 ## tech desc:
