@@ -11,3 +11,5 @@ function pitchAdjustmentConvertor(pitch) {
 }
 
 console.log(pitchAdjustmentConvertor(45));
+
+module.exports = {pitchAdjustmentConvertor};
