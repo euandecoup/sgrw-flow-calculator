@@ -43,6 +43,14 @@ function capacityCheck(flowRateValue, guterProfile, pipeProfile) {
     return flowRateValue <= maxFlowRate ? "Adequate Capacity" : "Inadequate Capacity"
 }
 
+function halfDistanceBetweenOutlets(maxDistanceBetweenOutlets) {
+    if (typeof maxDistanceBetweenOutlets !== 'number') {
+        throw new Error("Arguments must be numbers")
+    }
+    const halfDistanceLength = maxDistanceBetweenOutlets / 2 
+    return parseFloat(halfDistanceLength.toFixed(2))
+}
+
 const roofLength = 1;
 const roofDepth = 1;
 const roofPitch = 30;
@@ -60,4 +68,9 @@ const capacityStatus = capacityCheck(flowRateValue, gutterProfile, pipeProfile);
 
 console.log("Capacity Status:", capacityStatus);
 
-module.exports = {pitchAdjustmentConvertor, effectiveRoofArea, runOff, flowRate, capacityCheck};
+const maxDistanceBetweenOutlets = 7
+const halfDistanceLength = halfDistanceBetweenOutlets(maxDistanceBetweenOutlets)
+
+console.log("Half distance between outlets:", halfDistanceLength);
+
+module.exports = {pitchAdjustmentConvertor, effectiveRoofArea, runOff, flowRate, capacityCheck, halfDistanceBetweenOutlets};
