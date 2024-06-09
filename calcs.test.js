@@ -1,4 +1,4 @@
-const {pitchAdjustmentConvertor, effectiveRoofArea, runOff, flowRate} = require('./calcs');
+const {pitchAdjustmentConvertor, effectiveRoofArea, runOff, flowRate, capacityCheck} = require('./calcs');
 
 describe('pitchAdjustmentConvertor', () => {
   test('converts 30 pitch to 1.29 float', () => {
@@ -65,5 +65,23 @@ test('throws an error for non-numeric arguments', () => {
 
 test('handles division by zero gracefully', () => {
     expect(() => flowRate(10, 0)).toThrow('Minimum of 1 outlet required');
+});
+})
+
+describe('capacityCheck', () => {
+  test('returns adequate capacity for valid combination and sufficient flow', () => {
+    expect(capacityCheck(1.0, "4.5\" HR", "76mm Ø")).toBe("Adequate Capacity");
+});
+
+test('returns inadequate capacity for valid combination and excessive flow', () => {
+    expect(capacityCheck(1.5, "4.5\" HR", "76mm Ø")).toBe("Inadequate Capacity");
+});
+
+test('throws an error for invalid gutter profile', () => {
+    expect(() => capacityCheck(1.0, "Invalid Gutter", "76mm Ø")).toThrow("Invalid gutter-pipe profile combination");
+});
+
+test('throws an error for invalid pipe profile', () => {
+    expect(() => capacityCheck(1.0, "4.5\" HR", "Invalid Pipe")).toThrow("Invalid gutter-pipe profile combination");
 });
 })
