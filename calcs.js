@@ -1,3 +1,5 @@
+const {gutterPipeCombos} = require('./reference')
+
 function pitchAdjustmentConvertor(pitch) {
     let float = 0
     if (pitch === 30) {
@@ -33,6 +35,14 @@ function flowRate(rov, numOfOutlets) {
     return parseFloat(flowRate.toFixed(2))
 }
 
+function capacityCheck(flowRateValue, guterProfile, pipeProfile) {
+    if (!gutterPipeCombos[guterProfile] || !gutterPipeCombos[guterProfile][pipeProfile]) {
+        throw new Error("Invalid gutter-pipe profile combination")
+    }
+    const maxFlowRate = gutterPipeCombos[guterProfile][pipeProfile].flowRate
+    return flowRateValue <= maxFlowRate ? "Adequate Capacity" : "Inadequate Capacity"
+}
+
 const roofLength = 1;
 const roofDepth = 1;
 const roofPitch = 30;
@@ -40,8 +50,14 @@ const numOfOutlets = 2;
 
 const era = effectiveRoofArea(roofLength, roofDepth, roofPitch)
 const rov = runOff(era)
-const flow = flowRate(rov, numOfOutlets)
+const flowRateValue = flowRate(rov, numOfOutlets)
 
-console.log("Flow rate:", flow);
+console.log("Flow rate:", flowRateValue);
 
-module.exports = {pitchAdjustmentConvertor, effectiveRoofArea, runOff, flowRate};
+const gutterProfile = "4.5\" HR";
+const pipeProfile = "76mm Ø";
+const capacityStatus = capacityCheck(flowRateValue, gutterProfile, pipeProfile);
+
+console.log("Capacity Status:", capacityStatus);
+
+module.exports = {pitchAdjustmentConvertor, effectiveRoofArea, runOff, flowRate, capacityCheck};

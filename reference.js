@@ -244,3 +244,5 @@ const gutterPipeCombos = {
             },
     },
 }
+
+module.exports = {gutterPipeCombos}
