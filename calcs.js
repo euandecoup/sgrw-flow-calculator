@@ -14,9 +14,15 @@ function effectiveRoofArea(length = 0, depth = 0, pav = 0) {
     if (typeof length !== 'number' || typeof depth !== 'number' || typeof pav !== 'number') {
         throw new Error('Arguments must be numbers')
     }
-    return length * depth * pav
+    const era = length * depth * pav
+    return era 
 }
 
-console.log(effectiveRoofArea(7, 8, 1.87));
+function runOff(era) {
+    const rov = era * 0.022
+    return parseFloat(rov.toFixed(2))
+}
 
-module.exports = {pitchAdjustmentConvertor, effectiveRoofArea};
+console.log(runOff(effectiveRoofArea(1, 1, pitchAdjustmentConvertor(30))));
+
+module.exports = {pitchAdjustmentConvertor, effectiveRoofArea, runOff};
