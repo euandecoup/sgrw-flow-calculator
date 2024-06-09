@@ -1,4 +1,4 @@
-const {pitchAdjustmentConvertor, effectiveRoofArea, runOff, flowRate, capacityCheck} = require('./calcs');
+const {pitchAdjustmentConvertor, effectiveRoofArea, runOff, flowRate, capacityCheck, halfDistanceBetweenOutlets} = require('./calcs');
 
 describe('pitchAdjustmentConvertor', () => {
   test('converts 30 pitch to 1.29 float', () => {
@@ -83,5 +83,17 @@ test('throws an error for invalid gutter profile', () => {
 
 test('throws an error for invalid pipe profile', () => {
     expect(() => capacityCheck(1.0, "4.5\" HR", "Invalid Pipe")).toThrow("Invalid gutter-pipe profile combination");
+});
+})
+
+describe('halfDistanceBetweenOutlets', () => {
+  test('calculates half distance correctly', () => {
+    expect(halfDistanceBetweenOutlets(10)).toBe(5.00);
+    expect(halfDistanceBetweenOutlets(8.4)).toBe(4.20);
+});
+
+test('throws an error for non-numeric arguments', () => {
+    expect(() => halfDistanceBetweenOutlets('a')).toThrow('Arguments must be numbers');
+    expect(() => halfDistanceBetweenOutlets(null)).toThrow('Arguments must be numbers');
 });
 })
