@@ -1,4 +1,4 @@
-const {pitchAdjustmentConvertor, effectiveRoofArea} = require('./calcs');
+const {pitchAdjustmentConvertor, effectiveRoofArea, runOff} = require('./calcs');
 
 describe('pitchAdjustmentConvertor', () => {
   test('converts 30 pitch to 1.29 float', () => {
@@ -36,4 +36,14 @@ describe('effectiveRoofArea', () => {
     expect(() => effectiveRoofArea(10, 'b', 0.8)).toThrow('Arguments must be numbers');
     expect(() => effectiveRoofArea(10, 5, 'c')).toThrow('Arguments must be numbers');
   });
+})
+
+describe('runOff', ()=> {
+  test('calculates runoff correctly with valid effective roof area', () => {
+    expect(runOff(40)).toBe(0.88);
+});
+
+test('calculates runoff correctly with zero effective roof area', () => {
+    expect(runOff(0)).toBe(0);
+});
 })
