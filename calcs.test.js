@@ -1,4 +1,4 @@
-const {pitchAdjustmentConvertor, effectiveRoofArea, runOff} = require('./calcs');
+const {pitchAdjustmentConvertor, effectiveRoofArea, runOff, flowRate} = require('./calcs');
 
 describe('pitchAdjustmentConvertor', () => {
   test('converts 30 pitch to 1.29 float', () => {
@@ -45,5 +45,25 @@ describe('runOff', ()=> {
 
 test('calculates runoff correctly with zero effective roof area', () => {
     expect(runOff(0)).toBe(0);
+});
+})
+
+describe('flowRate', () => {
+  test('calculates flow rate correctly', () => {
+    expect(flowRate(10, 2)).toBe(5.00);
+    expect(flowRate(12.5, 3)).toBeCloseTo(4.17, 2);
+});
+
+test('handles zero runoff volume', () => {
+    expect(flowRate(0, 2)).toBe(0.00); 
+});
+
+test('throws an error for non-numeric arguments', () => {
+    expect(() => flowRate('a', 2)).toThrow('Arguments must be numbers');
+    expect(() => flowRate(10, 'b')).toThrow('Arguments must be numbers');
+});
+
+test('handles division by zero gracefully', () => {
+    expect(() => flowRate(10, 0)).toThrow('Minimum of 1 outlet required');
 });
 })
