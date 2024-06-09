@@ -23,6 +23,25 @@ function runOff(era) {
     return parseFloat(rov.toFixed(2))
 }
 
-console.log(runOff(effectiveRoofArea(1, 1, pitchAdjustmentConvertor(30))));
+function flowRate(rov, numOfOutlets) {
+    if (typeof rov !== 'number' || typeof numOfOutlets !== 'number') {
+        throw new Error('Arguments must be numbers')
+    } else if (numOfOutlets === 0) {
+        throw new Error('Minimum of 1 outlet required')
+    }
+    const flowRate = rov / numOfOutlets
+    return parseFloat(flowRate.toFixed(2))
+}
 
-module.exports = {pitchAdjustmentConvertor, effectiveRoofArea, runOff};
+const roofLength = 1;
+const roofDepth = 1;
+const roofPitch = 30;
+const numOfOutlets = 2;
+
+const era = effectiveRoofArea(roofLength, roofDepth, roofPitch)
+const rov = runOff(era)
+const flow = flowRate(rov, numOfOutlets)
+
+console.log("Flow rate:", flow);
+
+module.exports = {pitchAdjustmentConvertor, effectiveRoofArea, runOff, flowRate};
