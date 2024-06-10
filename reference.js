@@ -1,5 +1,7 @@
 const gutterPipeCombos = {
     '4.5" HR': {
+        //gutterDepth in mm
+        gutterDepth: 55,
         '63mm Ø': {
         // all float values in l/s
             flowRate: 1.12
@@ -21,6 +23,7 @@ const gutterPipeCombos = {
         }, 
     }, 
     '5" HR': {
+        gutterDepth: 59,
         '63mm Ø': {
                 flowRate: 1.15
             }, 
@@ -41,6 +44,7 @@ const gutterPipeCombos = {
             },
     },
     'Deep Flow HR': {
+        gutterDepth: 100,
         '63mm Ø': {
                 flowRate: 1.15
             }, 
@@ -61,6 +65,7 @@ const gutterPipeCombos = {
             },
     },
     '4x3" Ogee': {
+        gutterDepth: 75,
         '63mm Ø': {
                 flowRate: 1.16
             }, 
@@ -75,6 +80,7 @@ const gutterPipeCombos = {
             }, 
     },
     '5x4" Ogee': {
+        gutterDepth: 100,
         '63mm Ø': {
                 flowRate: 1.28
             }, 
@@ -92,6 +98,7 @@ const gutterPipeCombos = {
             },
     },
     '6x4" Ogee': {
+        gutterDepth: 100,
         '63mm Ø': {
                 flowRate: 1.31
             }, 
@@ -112,6 +119,7 @@ const gutterPipeCombos = {
             },
     },
     '8x6" Ogee': {
+        gutterDepth: 150,
         '63mm Ø': {
                 flowRate: 2.41
             }, 
@@ -135,6 +143,7 @@ const gutterPipeCombos = {
             },
     },
     '4x3" Box Gutter': {
+        gutterDepth: 75,
         '63mm Ø': {
                 flowRate: 1.62
             }, 
@@ -155,6 +164,7 @@ const gutterPipeCombos = {
             },
     },
     '5x4" Box Gutter': {
+        gutterDepth: 100,
         '63mm Ø': {
                 flowRate: 1.87
             }, 
@@ -175,6 +185,7 @@ const gutterPipeCombos = {
             },
     },
     '6x4" Box Gutter': {
+        gutterDepth: 100,
         '63mm Ø': {
                 flowRate: 1.87
             }, 
@@ -221,6 +232,7 @@ const gutterPipeCombos = {
             },
     },
     '8x6" Box Gutter': {
+        gutterDepth: 150,
         '63mm Ø': {
                 flowRate: 2.29
             }, 
