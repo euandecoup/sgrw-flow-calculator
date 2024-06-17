@@ -35,11 +35,11 @@ function flowRate(rov, numOfOutlets) {
     return parseFloat(flowRate.toFixed(2))
 }
 
-function capacityCheck(flowRateValue, guterProfile, pipeProfile) {
-    if (!gutterPipeCombos[guterProfile] || !gutterPipeCombos[guterProfile][pipeProfile]) {
+function capacityCheck(flowRateValue, gutterProfile, pipeProfile) {
+    if (!gutterPipeCombos[gutterProfile] || !gutterPipeCombos[gutterProfile][pipeProfile]) {
         throw new Error("Invalid gutter-pipe profile combination")
     }
-    const maxFlowRate = gutterPipeCombos[guterProfile][pipeProfile].flowRate
+    const maxFlowRate = gutterPipeCombos[gutterProfile][pipeProfile].flowRate
     return flowRateValue <= maxFlowRate ? "Adequate Capacity" : "Inadequate Capacity"
 }
 
@@ -49,6 +49,17 @@ function halfDistanceBetweenOutlets(maxDistanceBetweenOutlets) {
     }
     const halfDistanceLength = maxDistanceBetweenOutlets / 2 
     return parseFloat(halfDistanceLength.toFixed(2))
+}
+
+function lengthToDepth(halfDistanceLength, gutterProfile) {
+    if (typeof halfDistanceLength !== 'number') {
+        throw new Error('Half-distance length must be a number')
+    }
+    if (!gutterPipeCombos[gutterProfile]) {
+        throw new Error('Invalid gutter profile')
+    }
+    const lgd = halfDistanceLength / gutterPipeCombos[gutterProfile].gutterDepth
+    return parseFloat(lgd.toFixed(2))
 }
 
 const roofLength = 1;
@@ -73,4 +84,8 @@ const halfDistanceLength = halfDistanceBetweenOutlets(maxDistanceBetweenOutlets)
 
 console.log("Half distance between outlets:", halfDistanceLength);
 
-module.exports = {pitchAdjustmentConvertor, effectiveRoofArea, runOff, flowRate, capacityCheck, halfDistanceBetweenOutlets};
+const lgd = lengthToDepth(halfDistanceLength, gutterProfile)
+
+console.log("Lg/d:", lgd);
+
+module.exports = {pitchAdjustmentConvertor, effectiveRoofArea, runOff, flowRate, capacityCheck, halfDistanceBetweenOutlets, lengthToDepth};
