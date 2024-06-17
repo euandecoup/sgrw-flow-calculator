@@ -1,4 +1,4 @@
-const {pitchAdjustmentConvertor, effectiveRoofArea, runOff, flowRate, capacityCheck, halfDistanceBetweenOutlets} = require('./calcs');
+const {pitchAdjustmentConvertor, effectiveRoofArea, runOff, flowRate, capacityCheck, halfDistanceBetweenOutlets, lengthToDepth} = require('./calcs');
 
 describe('pitchAdjustmentConvertor', () => {
   test('converts 30 pitch to 1.29 float', () => {
@@ -95,5 +95,20 @@ describe('halfDistanceBetweenOutlets', () => {
 test('throws an error for non-numeric arguments', () => {
     expect(() => halfDistanceBetweenOutlets('a')).toThrow('Arguments must be numbers');
     expect(() => halfDistanceBetweenOutlets(null)).toThrow('Arguments must be numbers');
+});
+})
+
+describe('lengthToDepth', () => {
+  test('calculates length to depth ratio correctly', () => {
+    expect(lengthToDepth(5.00, '4.5" HR')).toBe(0.09); 
+    expect(lengthToDepth(4.20, '5" HR')).toBe(0.07); 
+});
+
+test('throws an error for non-numeric half-distance length', () => {
+    expect(() => lengthToDepth('a', '4.5" HR')).toThrow('Half-distance length must be a number');
+});
+
+test('throws an error for invalid gutter profile', () => {
+    expect(() => lengthToDepth(5.00, 'Invalid')).toThrow('Invalid gutter profile');
 });
 })
