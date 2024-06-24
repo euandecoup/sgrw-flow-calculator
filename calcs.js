@@ -62,6 +62,22 @@ function lengthToDepth(halfDistanceLength, gutterProfile) {
     return parseFloat(lgd.toFixed(2))
 }
 
+function lgdReductionFactor(lgd) {
+    if (typeof lgd != 'number') {
+        throw new Error("Invalid Lg/d - value must be a number")
+    }
+    
+    if (lgd <= 50) {
+        return 1
+    } else if (lgd > 50 && lgd <= 100) {
+        return 0.93
+    } else if (lgd > 100 && lgd <= 150) {
+        return 0.86
+    } else {
+        return 0.8
+    }
+}
+
 const roofLength = 1;
 const roofDepth = 1;
 const roofPitch = 30;
@@ -88,4 +104,8 @@ const lgd = lengthToDepth(halfDistanceLength, gutterProfile)
 
 console.log("Lg/d:", lgd);
 
-module.exports = {pitchAdjustmentConvertor, effectiveRoofArea, runOff, flowRate, capacityCheck, halfDistanceBetweenOutlets, lengthToDepth};
+const lgdReductionFactorValue = lgdReductionFactor(lgd)
+
+console.log("Lg/d : Reduction Factor value:", lgdReductionFactorValue);
+
+module.exports = {pitchAdjustmentConvertor, effectiveRoofArea, runOff, flowRate, capacityCheck, halfDistanceBetweenOutlets, lengthToDepth, lgdReductionFactor};

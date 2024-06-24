@@ -24,7 +24,7 @@ A flow calculator for Stormguard Rainwater's rainwater product range
 1. reference object of gutter / pipe combo capacity values
 2. pitch adjustment convertor function
 3. gutter depth
-4. Lg/d : reduction factor range table
+4. Lg/d : reduction factor range table [unnecessary - only function required]
 ## tech desc:
 Designs are based on rainfall rate of 79mm/hour
 Therefore: Run Off Rate (l/s) = Effective Area (m²) x 0.022
