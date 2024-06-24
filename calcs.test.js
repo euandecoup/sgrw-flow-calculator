@@ -1,4 +1,4 @@
-const {pitchAdjustmentConvertor, effectiveRoofArea, runOff, flowRate, capacityCheck, halfDistanceBetweenOutlets, lengthToDepth} = require('./calcs');
+const {pitchAdjustmentConvertor, effectiveRoofArea, runOff, flowRate, capacityCheck, halfDistanceBetweenOutlets, lengthToDepth, lgdReductionFactor} = require('./calcs');
 
 describe('pitchAdjustmentConvertor', () => {
   test('converts 30 pitch to 1.29 float', () => {
@@ -111,4 +111,23 @@ test('throws an error for non-numeric half-distance length', () => {
 test('throws an error for invalid gutter profile', () => {
     expect(() => lengthToDepth(5.00, 'Invalid')).toThrow('Invalid gutter profile');
 });
+})
+
+describe('lgdReductionFactor', () => {
+    test('outputs 1 when the input is less than or equal to 50', () => {
+      expect(lgdReductionFactor(0.06)).toBe(1)
+    });
+    test('outputs 0.93 when the input is greater than 50 and below or equal to 100', () => {
+      expect(lgdReductionFactor(99)).toBe(0.93)
+    });
+    test('outputs 0.86 when the input is greater than 100 and below or equal to 150', () => {
+      expect(lgdReductionFactor(150)).toBe(0.86)
+    });
+    test('outputs 0.8 when the input is greater than 150', () => {
+      expect(lgdReductionFactor(151)).toBe(0.8)
+      expect(lgdReductionFactor(151515151)).toBe(0.8)
+    });
+    test('should throw an error if invalid input received', () => {
+      expect(() => lgdReductionFactor('hamburger')).toThrow("Invalid Lg/d - value must be a number")
+    });
 })
