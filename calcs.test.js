@@ -1,4 +1,5 @@
-const {pitchAdjustmentConvertor, effectiveRoofArea, runOff, flowRate, capacityCheck, halfDistanceBetweenOutlets, lengthToDepth, lgdReductionFactor} = require('./calcs');
+const {pitchAdjustmentConvertor, effectiveRoofArea, runOff, flowRate, capacityCheck, halfDistanceBetweenOutlets, lengthToDepth, lgdReductionFactor, systemCapacityReductionCalc} = require('./calcs');
+const { gutterPipeCombos } = require('./reference')
 
 describe('pitchAdjustmentConvertor', () => {
   test('converts 30 pitch to 1.29 float', () => {
@@ -130,4 +131,25 @@ describe('lgdReductionFactor', () => {
     test('should throw an error if invalid input received', () => {
       expect(() => lgdReductionFactor('hamburger')).toThrow("Invalid Lg/d - value must be a number")
     });
+})
+
+describe('systemCapacityReductionCalc', () => {
+  test('should correctly calculate reduced capacity', () => {
+    const result = systemCapacityReductionCalc('4.5" HR', '76mm Ø', 0.93)
+    expect(result).toBeCloseTo(1.24, 2)
+    const result2 = systemCapacityReductionCalc('Deep Flow HR', '76x102mm', 1)
+    expect(result2).toBe(2.00)
+    const result3 = systemCapacityReductionCalc('6x4" Ogee', '102mm Ø', 0.8)
+    expect(result3).toBeCloseTo(2.85, 2)
+  });
+  test('should throw error for invalid gutter profile', () => {
+    expect(() => {
+      systemCapacityReductionCalc('Invalid Gutter', '76mm Ø', 0.93)
+    }).toThrow('Invalid gutter-pipe profile combination')
+  });
+  test('should throw error for invalid pipe profile', () => {
+    expect(() => {
+      systemCapacityReductionCalc('4.5" HR', 'Invalid Pipe', 0.93)
+    }).toThrow('Invalid gutter-pipe profile combination')
+  });
 })
