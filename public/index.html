@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rainwater FLow Calculator</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+      .container {
+        max-width: 600px;
+        margin: 50px auto;
+      }
+      label {
+        display: block;
+        margin-top: 10px;
+      }
+      select,
+      input,
+      button {
+        width: 100%;
+        padding: 8px;
+        margin-top: 5px;
+      }
+      button {
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #45a049;
+      }
+      .result {
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Rainwater Flow Calculator</h1>
+      <label for="roofLength">Roof Length (m)</label>
+      <input type="number" id="roofLength" value="1" />
+
+      <label for="roofDepth">Roof Depth (m)</label>
+      <input type="number" id="roofDepth" value="1" />
+
+      <label for="roofPitch">Roof Pitch (°)</label>
+      <input type="number" id="roofPitch" value="30" />
+
+      <label for="numOfOutlets">Number of Outlets</label>
+      <input type="number" id="numOfOutlets" value="1" />
+
+      <label for="gutterProfile">Gutter Profile</label>
+      <select id="gutterProfile"></select>
+
+      <label for="pipeProfile">Pipe Profile</label>
+      <select id="pipeProfile"></select>
+
+      <button onclick="checkCapacity()">Check Capacity</button>
+      <div class="result" id="result"></div>
+    </div>
+    <script>
+        const gutterSelect = document.getElementById("gutterProfile")
+        const pipeSelect = document.getElementById("pipeProfile")
+        let gutterPipeCombos
+      fetch("/api/gutter-pipe-combos")
+        .then((response) => response.json())
+        .then((gutterPipeCombos) => {
+          for (const gutter in gutterPipeCombos) {
+            const option = document.createElement("option");
+            option.value = gutter;
+            option.textContent = gutter;
+            gutterSelect.appendChild(option);
+          }
+          updatePipeOptions();
+        });
+
+      gutterSelect.addEventListener("change", updatePipeOptions);
+
+      function updatePipeOptions() {
+        pipeSelect.innerHTML = "";
+        const selectedGutter = gutterSelect.value;
+        fetch("/api/gutter-pipe-combos")
+          .then((response) => response.json())
+          .then((gutterPipeCombos) => {
+            const pipes = gutterPipeCombos[selectedGutter];
+            for (const pipe in pipes) {
+              if (pipe !== "gutterDepth") {
+                const option = document.createElement("option");
+                option.value = pipe;
+                option.textContent = pipe;
+                pipeSelect.appendChild(option);
+              }
+            }
+          });
+      }
+
+      function checkCapacity() {
+        const roofLength = document.getElementById("roofLength").value;
+        const roofDepth = document.getElementById("roofDepth").value;
+        const roofPitch = document.getElementById("roofPitch").value;
+        const numOfOutlets = document.getElementById("numOfOutlets").value;
+        const gutterProfile = gutterSelect.value;
+        const pipeProfile = pipeSelect.value;
+
+        fetch(
+          `/check-capacity?roofLength=${roofLength}&roofDepth=${roofDepth}&roofPitch=${roofPitch}&numOfOutlets=${numOfOutlets}&gutterProfile=${gutterProfile}&pipeProfile=${pipeProfile}`
+        )
+          .then((response) => response.json())
+          .then((data) => {
+            const resultDiv = document.getElementById("result");
+            if (data.error) {
+              resultDiv.textContent = `Error: ${data.error}`;
+            } else {
+              resultDiv.textContent = `Capacity Status: ${data.capacityStatus}`;
+            }
+          })
+          .catch((error) => {
+            console.log("Error:", error);
+          });
+      }
+    </script>
+  </body>
+</html>
