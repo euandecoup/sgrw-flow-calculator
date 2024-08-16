@@ -99,6 +99,10 @@ function systemCapacityReductionCalc(gutterProfile, pipeProfile, lgdReductionFac
   return parseFloat(reducedCapacity.toFixed(2))
 }
 
+function checkReducedCapacity(flowRateValue, systemCapacityReductionValue) {
+    return flowRateValue <= systemCapacityReductionValue ? "Adequate Capacity" : "Inadequate Capacity"
+}
+
 const roofLength = 1;
 const roofDepth = 1;
 const roofPitch = 30;
@@ -135,6 +139,10 @@ const systemCapacityReductionValue = systemCapacityReductionCalc(gutterProfile, 
 
 console.log("System Capacity Reduction Value:", systemCapacityReductionValue);
 
+const finalCapacityStatus = checkReducedCapacity(flowRateValue, systemCapacityReductionValue)
+
+console.log("Final Capacity Status (after reduction):", finalCapacityStatus)
+
 module.exports = {
   pitchAdjustmentConvertor,
   effectiveRoofArea,
@@ -144,5 +152,6 @@ module.exports = {
   halfDistanceBetweenOutlets,
   lengthToDepth,
   lgdReductionFactor,
-  systemCapacityReductionCalc
+  systemCapacityReductionCalc, 
+  checkReducedCapacity
 };
