@@ -1,5 +1,5 @@
 # sgrw-flow-calculator
-A flow calculator for Stormguard Rainwater's rainwater product range.
+A flow calculator for a rainwater product range.
 
 # flow calculator
 ## inputs:
