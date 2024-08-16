@@ -103,45 +103,38 @@ function checkReducedCapacity(flowRateValue, systemCapacityReductionValue) {
     return flowRateValue <= systemCapacityReductionValue ? "Adequate Capacity" : "Inadequate Capacity"
 }
 
-const roofLength = 1;
-const roofDepth = 1;
-const roofPitch = 30;
-const numOfOutlets = 2;
+// const roofLength = 1;
+// const roofDepth = 1;
+// const roofPitch = 30;
+// const numOfOutlets = 2;
 
-const era = effectiveRoofArea(roofLength, roofDepth, roofPitch);
-const rov = runOff(era);
-const flowRateValue = flowRate(rov, numOfOutlets);
+// const era = effectiveRoofArea(roofLength, roofDepth, roofPitch);
+// const rov = runOff(era);
+// const flowRateValue = flowRate(rov, numOfOutlets);
+// console.log("Flow rate:", flowRateValue);
 
-console.log("Flow rate:", flowRateValue);
+// const gutterProfile = '4.5" HR';
+// const pipeProfile = "76mm Ø";
+// const capacityStatus = capacityCheck(flowRateValue, gutterProfile, pipeProfile);
+// console.log("Capacity Status:", capacityStatus);
 
-const gutterProfile = '4.5" HR';
-const pipeProfile = "76mm Ø";
-const capacityStatus = capacityCheck(flowRateValue, gutterProfile, pipeProfile);
+// const maxDistanceBetweenOutlets = 7;
+// const halfDistanceLength = halfDistanceBetweenOutlets(
+//   maxDistanceBetweenOutlets
+// );
+// console.log("Half distance between outlets:", halfDistanceLength);
 
-console.log("Capacity Status:", capacityStatus);
+// const lgd = lengthToDepth(halfDistanceLength, gutterProfile);
+// console.log("Lg/d:", lgd);
 
-const maxDistanceBetweenOutlets = 7;
-const halfDistanceLength = halfDistanceBetweenOutlets(
-  maxDistanceBetweenOutlets
-);
+// const lgdReductionFactorValue = lgdReductionFactor(lgd);
+// console.log("Reduction Factor:", lgdReductionFactorValue);
 
-console.log("Half distance between outlets:", halfDistanceLength);
+// const systemCapacityReductionValue = systemCapacityReductionCalc(gutterProfile, pipeProfile, lgdReductionFactorValue)
+// console.log("System Capacity Reduction Value:", systemCapacityReductionValue);
 
-const lgd = lengthToDepth(halfDistanceLength, gutterProfile);
-
-console.log("Lg/d:", lgd);
-
-const lgdReductionFactorValue = lgdReductionFactor(lgd);
-
-console.log("Reduction Factor:", lgdReductionFactorValue);
-
-const systemCapacityReductionValue = systemCapacityReductionCalc(gutterProfile, pipeProfile, lgdReductionFactorValue)
-
-console.log("System Capacity Reduction Value:", systemCapacityReductionValue);
-
-const finalCapacityStatus = checkReducedCapacity(flowRateValue, systemCapacityReductionValue)
-
-console.log("Final Capacity Status (after reduction):", finalCapacityStatus)
+// const finalCapacityStatus = checkReducedCapacity(flowRateValue, systemCapacityReductionValue)
+// console.log("Final Capacity Status (after reduction):", finalCapacityStatus)
 
 module.exports = {
   pitchAdjustmentConvertor,
