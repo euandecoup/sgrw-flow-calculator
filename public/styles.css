@@ -1,8 +1,9 @@
 body {
   font-family: Arial, sans-serif;
+  font-size: smaller;
 }
 .container {
-  max-width: 600px;
+  max-width: 250px;
   margin: 50px auto;
 }
 label {
@@ -11,8 +12,8 @@ label {
 }
 select,
 input,
-button {
-  width: 100%;
+button, img {
+  width: 125px;
   padding: 8px;
   margin-top: 5px;
 }
@@ -37,4 +38,10 @@ button.inadequate:hover {
 
 .result {
   margin-top: 20px;
+}
+
+h1 {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: medium;
+    color: #005029;
 }

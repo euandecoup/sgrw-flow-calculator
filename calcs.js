@@ -1,12 +1,12 @@
 const { gutterPipeCombos } = require("./reference");
 
 function pitchAdjustmentConvertor(pitch) {
-  let float = 0;
-  if (pitch === 30) {
+  let float = 1;
+  if (pitch >= 30 && pitch < 45) {
     float = 1.29;
-  } else if (pitch === 45) {
+  } else if (pitch >= 45 && pitch < 60) {
     float = 1.5;
-  } else if (pitch === 60) {
+  } else if (pitch >= 60) {
     float = 1.87;
   }
   return float;
@@ -87,20 +87,26 @@ function lgdReductionFactor(lgd) {
   }
 }
 
-function systemCapacityReductionCalc(gutterProfile, pipeProfile, lgdReductionFactorValue) {
-    if (
-        !gutterPipeCombos[gutterProfile] ||
-        !gutterPipeCombos[gutterProfile][pipeProfile]
-      ) {
-        throw new Error("Invalid gutter-pipe profile combination");
-      }
-      const maxFlowRate = gutterPipeCombos[gutterProfile][pipeProfile].flowRate;
-      const reducedCapacity = maxFlowRate * lgdReductionFactorValue; 
-  return parseFloat(reducedCapacity.toFixed(2))
+function systemCapacityReductionCalc(
+  gutterProfile,
+  pipeProfile,
+  lgdReductionFactorValue
+) {
+  if (
+    !gutterPipeCombos[gutterProfile] ||
+    !gutterPipeCombos[gutterProfile][pipeProfile]
+  ) {
+    throw new Error("Invalid gutter-pipe profile combination");
+  }
+  const maxFlowRate = gutterPipeCombos[gutterProfile][pipeProfile].flowRate;
+  const reducedCapacity = maxFlowRate * lgdReductionFactorValue;
+  return parseFloat(reducedCapacity.toFixed(2));
 }
 
 function checkReducedCapacity(flowRateValue, systemCapacityReductionValue) {
-    return flowRateValue <= systemCapacityReductionValue ? "Adequate Capacity" : "Inadequate Capacity"
+  return flowRateValue <= systemCapacityReductionValue
+    ? "Adequate Capacity"
+    : "Inadequate Capacity";
 }
 
 // const roofLength = 1;
@@ -145,6 +151,6 @@ module.exports = {
   halfDistanceBetweenOutlets,
   lengthToDepth,
   lgdReductionFactor,
-  systemCapacityReductionCalc, 
-  checkReducedCapacity
+  systemCapacityReductionCalc,
+  checkReducedCapacity,
 };
